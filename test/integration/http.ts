@@ -117,4 +117,13 @@ describe('HTTP Function', () => {
       assert.strictEqual(callCount, test.expectedCallCount);
     });
   });
+
+  it('can disable the default ignored routes', async () => {
+    const response = await supertest(
+      getTestServer('testHttpFunction', {ignoredRoutes: ''}),
+    ).get('/favicon.ico');
+
+    assert.strictEqual(response.status, 200);
+    assert.strictEqual(callCount, 1);
+  });
 });
